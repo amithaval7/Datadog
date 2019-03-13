@@ -1,9 +1,5 @@
 podTemplate(label: 'DataDog', containers: [
-    containerTemplate(name: 'terraform-az', image: '<containerRegistry>/terraform-az', ttyEnabled: true, command: 'cat',envVars: [
-       secretEnvVar(key: 'ARM_CLIENT_ID', secretName: '<your-secret-name>', secretKey: 'clientid'),
-       secretEnvVar(key: 'ARM_CLIENT_SECRET', secretName: '<your-secret-name>', secretKey: 'clientsecret'),
-       secretEnvVar(key: 'ARM_TENANT_ID', secretName: '<your-secret-name>', secretKey: 'tenantid'),
-       secretEnvVar(key: 'ARM_SUBSCRIPTION_ID', secretName: '<your-secret-name>', secretKey: 'subscriptionid')
+       secretEnvVar(key: 'ARM_CLIENT_SECRET'),
         ]),
   ]) 
 {
