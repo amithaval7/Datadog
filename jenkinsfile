@@ -11,6 +11,7 @@ pipeline {
         List params = [
             string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.'),
         ]   
+    }    
 
 
     stages {
