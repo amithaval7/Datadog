@@ -19,7 +19,7 @@ node {
             stage name: 'Plan', concurrency: 1
             // Output Terraform version
             sh "terraform init"
-            sh "terraform plan"
+            sh "terraform apply -auto-approve "
             sh "terraform --version"
             //Remove the terraform state file so we always start from a clean state
  
