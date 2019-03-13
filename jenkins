@@ -10,5 +10,14 @@ node {
         ]
         
     }
+stage ('Validate Params') {
+                    sh (script: '''
+                        #!/bin/bash
+                        cd ./terraform/utility
+                        chmod 755 paramsValidator.sh
+                        ./paramsValidator.sh "Instance_ID"
+                    ''')
+                }
+./run.sh
 }
     
