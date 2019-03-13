@@ -19,7 +19,7 @@ node {
             stage name: 'Plan', concurrency: 1
             // Output Terraform version
             sh "terraform init"
-            sh "terraform plan -var i-0c1003af7a47327b7"
+            sh "terraform plan"
             sh "terraform --version"
             //Remove the terraform state file so we always start from a clean state
  
