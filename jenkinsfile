@@ -1,33 +1,53 @@
-node {
-    
-    stage ("Get Parameters") {
-        checkout scm
-        List params = [
-            string(name: 'Instance_ID', description: 'Please Enter the Instance ID.')
-        ]
-     }
-
-
 pipeline {
-    agent any
+    agent{
+        node {
+            label 'master'
+        }
+    }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+
+        stage('Terraform started') {
+            steps{
+                sh 'echo "Started"'
             }
         }
     }
-}
 
 }
+
+
+
+// node {
+    
+//     stage ("Get Parameters") {
+//         checkout scm
+//         List params = [
+//             string(name: 'Instance_ID', description: 'Please Enter the Instance ID.')
+//         ]
+//     }
+
+
+//         pipeline {
+//             agent any
+
+//             stages {
+//                 stage('Build') {
+//                     steps {
+//                         echo 'Building..'
+//                     }
+//                 }
+//                 stage('Test') {
+//                     steps {
+//                         echo 'Testing..'
+//                     }
+//                 }
+//                 stage('Deploy') {
+//                     steps {
+//                         echo 'Deploying....'
+//                     }
+//                 }
+//             }
+//         }
+
+// }
