@@ -10,7 +10,8 @@ resource "datadog_monitor" "CPU_Usage" {
   message            = "Monitor triggered. Notify: @havalamit7@gmail.com"
   escalation_message = "Escalation message @havalamit7@gmail.com"
 
-  query = "avg(last_10m):avg:aws.ec2.cpuutilization{instance_id:${var.instance}} by {host} < 5"
+  # query = "avg(last_10m):avg:aws.ec2.cpuutilization{instance_id:${var.instance}} by {host} < 5"
+  query = "avg(last_10m):avg:aws.ec2.cpuutilization{instance_id:i-0c1003af7a47327b7} by {host} < 5"
 
   thresholds {
     
