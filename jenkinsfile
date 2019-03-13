@@ -1,7 +1,11 @@
 node {
-    checkout scm 
-    /* .. snip .. */
-}
+    
+    stage ("Get Parameters") {
+        checkout scm
+        List params = [
+            string(name: 'Instance_ID', description: 'Please Enter the Instance ID.')
+        ]
+     }
 
 
 pipeline {
