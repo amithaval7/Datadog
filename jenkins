@@ -1,0 +1,14 @@
+node {
+    def whImage
+    
+    stage ("Get Parameters") {
+        checkout scm
+        List props = []
+        List params = [
+            string(name: 'Instance_ID', description: 'Please Enter the instance id. '),
+            
+        ]
+        
+    }
+}
+    
