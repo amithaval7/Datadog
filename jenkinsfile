@@ -8,12 +8,12 @@ pipeline {
     }
     
     stages {
-        stage ("Get parameters"){
-            checkout scm
-            List params = [
-                string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.'),
-            ]   
-        }    
+        // stage ("Get parameters"){
+        //     checkout scm
+        //     List params = [
+        //         string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.'),
+        //     ]   
+        // }    
     
 
         stage('Plan') {
