@@ -14,6 +14,7 @@ node {
             // Mark the code build 'plan'....
             stage name: 'Plan', concurrency: 1
             // Output Terraform version
+            sh "terraform init"
             sh "terraform plan"
             sh "terraform --version"
             //Remove the terraform state file so we always start from a clean state
