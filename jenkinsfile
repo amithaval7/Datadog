@@ -1,23 +1,21 @@
-node {
-    def whImage
-    
-    stage ("Get Parameters") {
-        checkout scm
-        List props = []
-        List params = [
-            string(name: 'Instance_ID', description: 'Please Enter the instance id. '),
-            
-        ]
-        
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
-stage ('Validate Params') {
-                    sh (script: '''
-                        #!/bin/bash
-                        cd ./terraform/utility
-                        chmod 755 paramsValidator.sh
-                        ./paramsValidator.sh "Instance_ID"
-                    ''')
-                }
-./run.sh
 }
-    
