@@ -6,9 +6,9 @@ node {
     // // Get some code from a GitHub repository
     git url: 'https://github.com/amithaval7/Datadog.git'
  
-    List params = [
-            string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.')
-    ]
+//     List params = [
+//             string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.')
+//     ]
             // Mark the code build 'plan'....
             //                 sh 'terraform init -input=false'
 //                 sh 'terraform workspace select ${environment}'
@@ -19,7 +19,7 @@ node {
             stage name: 'Plan', concurrency: 1
             // Output Terraform version
             sh "terraform init"
-            sh "terraform apply -auto-approve "
+            sh "terraform apply -var ${var.Instance_ID} -auto-approve "
             sh "terraform --version"
             //Remove the terraform state file so we always start from a clean state
  

@@ -1,5 +1,4 @@
 #!/bin/bash
 
-export TF_VAR_instance_id=${instance_id}
+export TF_VAR_instance_id=${Instance_ID}
 
-/run.sh $(dirname $(pwd))
