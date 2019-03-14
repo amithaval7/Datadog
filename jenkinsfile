@@ -1,8 +1,7 @@
-nnode {
+node () {
  
     stage 'Checkout'{
- 
-    git url: 'https://github.com/amithaval7/Datadog.git'
+        git url: 'https://github.com/amithaval7/Datadog.git'
     }
     
     stage name: 'Plan', concurrency: 1{
@@ -15,5 +14,3 @@ nnode {
         
     }
  }
-
- 
