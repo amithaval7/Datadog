@@ -6,17 +6,21 @@ node {
  
     git url: 'https://github.com/amithaval7/Datadog.git'
  
+    stage ('Plan') {
+        sh (script: '''
+        #!/bin/bash
+        sh "terraform init"
+        sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve "
+        sh "rm terraform.tfstate"
+        sh "rm terraform.tfstate.backup"
+        ./run.sh
+        ''')
 
-    List params = [
-        string(name: 'Instance_ID', description: 'Please Enter the Instance ID’)
-            ]
+    
 
-    stage name: 'Plan', concurrency: 1
+
  
-            sh "terraform init"
-            sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve "
-            sh "rm terraform.tfstate"
-            sh "rm terraform.tfstate.backup"
+            
 
  
  
