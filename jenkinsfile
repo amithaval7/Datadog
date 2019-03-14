@@ -4,13 +4,13 @@ node () {
         git url: 'https://github.com/amithaval7/Datadog.git'
     }
     
-    stage name: 'Plan', concurrency: 1{
+    stage name: 'Plan', concurrency: 1 {
 
         sh "terraform init"
         sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve"
         sh "rm terraform.tfstate"
         sh "rm terraform.tfstate.backup"
-        ./run.sh
+        // ./run.sh
         
     }
  }
