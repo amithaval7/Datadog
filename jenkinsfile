@@ -10,7 +10,7 @@ node () {
         sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve"
         sh "rm terraform.tfstate"
         sh "rm terraform.tfstate.backup"
-        #!/bin/bash
+        
         ./run.sh
     
  }
