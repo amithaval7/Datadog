@@ -9,7 +9,7 @@ node {
             stage name: 'Plan', concurrency: 1
  
             sh "terraform init"
-            sh "terraform apply -var 'Instance_ID=${var.Instance_ID}' -auto-approve "
+            sh "terraform apply -var 'Instance_ID=${Instance_ID}' -auto-approve "
             sh "terraform --version"
  
  
