@@ -15,13 +15,6 @@ node {
         sh "rm terraform.tfstate.backup"
         ./run.sh
         ''')
-
-    
-
-
- 
-            
-
- 
+    }
  
 }
