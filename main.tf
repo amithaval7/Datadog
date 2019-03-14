@@ -1,10 +1,11 @@
 provider "datadog" {
   api_key = "4295c759fb2ad28b187cebe3085fd730"
   app_key = "d20f0e7c8302fc0b5c925474f8e9f4ae29650ddf"
-  export Instance_ID= ${var.Instance_ID}
+  Instance_ID = "${var.Instance_ID}"
 }
 
 resource "datadog_monitor" "CPU_Usage" {
+  
   name               = "Test_Terraform_4"
   type               = "metric alert"
   message            = "Monitor triggered. Notify: @havalamit7@gmail.com"
