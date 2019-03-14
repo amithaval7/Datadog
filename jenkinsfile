@@ -1,26 +1,16 @@
+
+
 node {
  
-    // Mark the code checkout 'Checkout'....
     stage 'Checkout'
  
-    // // Get some code from a GitHub repository
     git url: 'https://github.com/amithaval7/Datadog.git'
  
-//     List params = [
-//             string(name: 'INSTANCE_ID', description: 'Please Enter the INSTANCE ID.')
-//     ]
-            // Mark the code build 'plan'....
-            //                 sh 'terraform init -input=false'
-//                 sh 'terraform workspace select ${environment}'
-//                 sh "terraform plan -input=false -out tfplan -var 'version=${version}' --var-file=environments/${environment}.tfvars"
-//                 sh 'terraform show -no-color tfplan > tfplan.txt'
-
-
             stage name: 'Plan', concurrency: 1
-            // Output Terraform version
+ 
             sh "terraform init"
-            sh "terraform apply -var ${var.Instance_ID} -auto-approve "
+            sh "terraform apply -var 'Instance_ID=${var.Instance_ID}' -auto-approve "
             sh "terraform --version"
-            //Remove the terraform state file so we always start from a clean state
+ 
  
 }
