@@ -49,3 +49,4 @@ resource "datadog_monitor" "CPU_Usage" {
 
 # editing this monitor to its creator or administrators
   # locked = "false"
+}
