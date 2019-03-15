@@ -22,16 +22,16 @@ node {
         // roleSessionName: BUILD_USER_EMAIL]])
         // {
             // whImage.inside {
-                stage ('Setup Env'){
-                    script {
-                        currentBuild.displayName = "Guru"
-                        currentBuild.description = "oiuy"
-                    }
-                    sh (script: '''
-                        #!/bin/bash
-                        # chmod 755 -R terraform
-                    ''')
-                }
+                // stage ('Setup Env'){
+                //     script {
+                //         currentBuild.displayName = "Guru"
+                //         currentBuild.description = "oiuy"
+                //     }
+                //     sh (script: '''
+                //         #!/bin/bash
+                //         # chmod 755 -R terraform
+                //     ''')
+                // }
 
                 // stage ('Validate Params') {
                 //     sh (script: '''
