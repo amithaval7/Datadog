@@ -1,4 +1,17 @@
-!/bin/bash
+#!/bin/bash
 
-export TF_VAR_Instance_ID=${Instance_ID}
+set -e
 
+rm -rf .terraform terraform.tfstate terraform.tfstate.backup
+
+terraform init
+terraform get
+
+if [ "$APPLY_CHANGES" == "true" ] 
+then
+	terraform apply -auto-approve 
+else
+	terraform plan
+fi
+
+terraform show

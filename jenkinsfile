@@ -1,17 +1,134 @@
-node () {
- 
-    stage 'Checkout'
-        git url: 'https://github.com/amithaval7/Datadog.git'
+node {
+    // def whImage
     
-    
-    stage name: 'Plan', concurrency: 1 
+    stage ("Get Parameters") {
+        checkout scm
+        List props = []
+        List params = [
+            string(name: 'instance_id', description: 'Please Enter the name of the customer. (Note: Only lowercase values allowed)'),
+            string(name: 'api_key', description: 'Please Enter the env for which you want to deploy the db (ref/ci/dev). (Note: Only lowercase values allowed)'),
+            string(name: 'app_key', description: 'Select if the implementation type is Production or Non-Production ( If Production is selected Multi-AZ will be enabled )', choices:'Non-production\nProduction'),
+            booleanParam(name: 'APPLY_CHANGES', defaultValue: false, description: 'If not opted, it will be dry run')
+        ]
+        props << parameters(params)
+        properties(props)
+        // whImage = docker.build("whcontainer:latest")
+    }
 
-        sh "terraform init"
-        sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve"
-        sh "rm terraform.tfstate"
-        sh "rm terraform.tfstate.backup"
-        sh "./run.sh"
+    // wrap([$class: 'BuildUser']) {
+        // withCredentials([
+        // [$class: 'AmazonWebServicesCredentialsBinding',
+        // credentialsId: CREDENTIALS,
+        // roleSessionName: BUILD_USER_EMAIL]])
+        // {
+            // whImage.inside {
+                stage ('Setup Env'){
+                    script {
+                        currentBuild.displayName = "Guru"
+                        currentBuild.description = "oiuy"
+                    }
+                    sh (script: '''
+                        #!/bin/bash
+                        chmod 755 -R terraform
+                    ''')
+                }
+
+                // stage ('Validate Params') {
+                //     sh (script: '''
+                //         #!/bin/bash
+                //         cd ./terraform/utility
+                //         chmod 755 paramsValidator.sh
+                //         ./paramsValidator.sh "ACCOUNT_NAME, TIETO_ENV_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, REGION, DB_NAME, DB_USER, DB_PASSWORD, DB_PORT, RDS_CONFIG, RDS_INSTANCE_CLASS, RDS_STORAGE, KMS_KEY_ID, BACKUP_RETENTION_PERIOD, BACKUP_WINDOW, IMPLEMENTATION_TYPE, SKIP_FINAL_SNAPSHOT"
+                //     ''')
+                // }
+
+                // stage("Setup Log group"){
+                //     if (env.APPLY_CHANGES == 'true') {
+                //         sh '''
+                //             #!/bin/bash
+                //             for logGroupName in /aws/rds/instance/${ACCOUNT_NAME}-${TIETO_ENV_NAME}/alert \
+                //                                 /aws/rds/instance/${ACCOUNT_NAME}-${TIETO_ENV_NAME}/listener \
+                //                                 /aws/rds/instance/${ACCOUNT_NAME}-${TIETO_ENV_NAME}/audit \
+                //                                 /aws/rds/instance/${ACCOUNT_NAME}-${TIETO_ENV_NAME}/trace 
+                //                 do
+                //                     awsLogGroupName=$(aws logs describe-log-groups --log-group-name-prefix ${logGroupName} --query logGroups[0].logGroupName --output text --region ${REGION})
+                //                     if [ "${logGroupName}" = "${awsLogGroupName}" ]
+                //                     then
+                //                         echo "Log group ${logGroupName} is already present"
+                //                     else
+                //                         echo "creating log group"
+                //                         aws logs create-log-group --log-group-name ${logGroupName} --region ${REGION}
+                //                     fi
+
+                //                     if [ "${KMS_KEY_ID}" = "NULL" ]
+                //                     then
+                //                         echo "KMS key was not provided hence logs are not encrypted"
+                //                     else
+                //                         echo "associate log group with KMS"
+                //                         aws logs associate-kms-key --log-group-name ${logGroupName} --kms-key-id ${KMS_KEY_ID} --region ${REGION}
+                //                     fi
+                //                 done
+                //         '''
+                //     }else{
+                //         echo "Dry run"
+                //     }
+                // }
+
+                stage ('call tf') {
+                    sh (script: '''
+                        #!/bin/bash
+                        export TF_VAR_instance_id=$instance_id
+                        export TF_VAR_api_key=$api_key
+                        export TF_VAR_app_key=$app_key
+                        ./run.sh
+                    ''')
+                }
+
+                // stage ('Add DNS (Route53) Entry') {
+                //     sh (script: '''
+                //         #!/bin/bash
+
+                //         rm -f .terraform/terraform.tfstate
+                //         #Fetch the DB endpoint created
+                //         export MODULE=06-Deploy/db/01-db
+                //         ACCOUNT_ID=`aws sts get-caller-identity --output text --query 'Account'`
+                //         terraform init \
+                //             -backend-config="bucket=${ACCOUNT_ID}-${REGION}-tieto-${ACCOUNT_NAME}-dawinci-tfstate" \
+                //             -backend-config="key=env/${REGION}/${ACCOUNT_NAME}/${MODULE}/${ACCOUNT_NAME}/${TIETO_ENV_NAME}/terraform.tfstate" \
+                //             -backend-config="region=${REGION}"
+                //         export DBHostName=$(terraform output aws_db_instance.dbinstance.address)
+
+                //         export HOSTED_ZONE_TYPE=public
+                //         export RECORD_SET_NAME=${TIETO_ENV_NAME}.db
+                //         export RECORD_SET_RECORD=${DBHostName}
+
+                //         export MODULE=utility/misc/record_set_cname
+                //         cd ./terraform/${MODULE}/ci
+
+                //         #Modifing Module so it points to correct S3 key
+                //         export MODULE=${MODULE}/${ACCOUNT_NAME}/${TIETO_ENV_NAME}/${RECORD_SET_NAME}
+                //         ./run.sh
+                //     ''')
+                // }
+    //         }
+    //     }
+    // }
+}
+
+// node () {
+ 
+//     stage 'Checkout'
+//         git url: 'https://github.com/amithaval7/Datadog.git'
+    
+    
+//     stage name: 'Plan', concurrency: 1 
+
+//         sh "terraform init"
+//         sh "terraform apply -var 'Instance_ID=${env.Instance_ID}' -auto-approve"
+//         sh "rm terraform.tfstate"
+//         sh "rm terraform.tfstate.backup"
+//         sh "./run.sh"
         
 
 
- }
+//  }
