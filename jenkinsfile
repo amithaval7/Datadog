@@ -29,7 +29,7 @@ node {
                     }
                     sh (script: '''
                         #!/bin/bash
-                        chmod 755 -R terraform
+                        # chmod 755 -R terraform
                     ''')
                 }
 
