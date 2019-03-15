@@ -6,8 +6,8 @@ node {
         List props = []
         List params = [
             string(name: 'instance_id', description: 'Please enter the instance id '),
-            string(name: 'api_key', description: 'Please Enter the env for which you want to deploy the db (ref/ci/dev). (Note: Only lowercase values allowed)'),
-            string(name: 'app_key', description: 'Select if the implementation type is Production or Non-Production ( If Production is selected Multi-AZ will be enabled )', choices:'Non-production\nProduction'),
+            string(name: 'api_key', description: 'Please enter the api key'),
+            string(name: 'app_key', description: 'Please enter the app key'),
             booleanParam(name: 'APPLY_CHANGES', defaultValue: false, description: 'If not opted, it will be dry run')
         ]
         props << parameters(params)
@@ -15,7 +15,7 @@ node {
         
     }
 
-                stage ('call tf') {
+                stage ('Call Terraform') {
                     sh (script: '''
                         #!/bin/bash
                         export TF_VAR_instance_id=$instance_id
